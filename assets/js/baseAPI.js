@@ -1,4 +1,4 @@
-$.ajaxPrefilter(function(config){
+$.ajaxPrefilter(function (config) {
   // 封装数据转换成json字符串的函数
   const format2Json = source => {
     const target = {}
@@ -13,5 +13,21 @@ $.ajaxPrefilter(function(config){
   // 统一设置请求头
   config.contentType = 'application/json'
   // 统一设置请求的参数-post请求
-  config.data = format2Json(config.data)
+  config.data = config.data && format2Json(config.data)
+  // 统一设置请求头
+  // indexOf startWith endWith includes
+  if (config.url.includes('/my')) {
+    // config里没有headers属性，自行添加。
+    config.headers = {
+      Authorization : localStorage.getItem('big_news_token')
+    }
+  }
+
+  // 统一添加错误回调
+  config.error = function (err) {
+    if (err.responseJSON?.code === 1 && err.responseJSON?.message === '身份认证失败！') {
+      localStorage.removeItem('big_news_token')
+      location.href = '/login.html'
+    }
+  }
 })
