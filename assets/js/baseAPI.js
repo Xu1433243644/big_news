@@ -23,7 +23,7 @@ $.ajaxPrefilter(function (config) {
     }
   }
 
-  // 统一添加错误回调
+  // 统一添加错误回调 或者 compel
   config.error = function (err) {
     if (err.responseJSON?.code === 1 && err.responseJSON?.message === '身份认证失败！') {
       localStorage.removeItem('big_news_token')

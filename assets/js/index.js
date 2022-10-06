@@ -35,13 +35,13 @@ const getUserInfo = () => {
 const renderAvatar = (res) => {
   if (res.user_pic) {
     $('.text-avatar').hide()
-    $('.user-info img').css('src', res.user_pic)
+    $('.user-info img').css('src', res.user_pic).show()
   } else {
     $('.layui-nav-img').hide()
     // 显示文字头像，取username第一个字母
     const name = res.data.nickname || res.data.username
     const char = name.charAt(0).toUpperCase()
-    $('.text-avatar').html(char)
+    $('.text-avatar').html(char).show()
   }
   $('.text').html(`欢迎&nbsp;&nbsp;${res.data.username}`)
 }
