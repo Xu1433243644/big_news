@@ -12,7 +12,7 @@
   <div class="layui-card">
     <div class="layui-card-header">
       <span class="title">文章分类</span>
-      <button type="button" class="layui-btn layui-btn-normal layui-btn-sm">添加类别</button>
+      <button type="button" class="layui-btn layui-btn-normal layui-btn-sm" id="btnAdd">添加类别</button>
     </div>
     <div class="layui-card-body">
       <table class="layui-table">
@@ -37,6 +37,7 @@
     </div>
   </div>
 
+  <!-- 模板引擎 -->
   <script type="text/html" id="tpl-cate">
     {{each data}}
     <tr>
@@ -44,12 +45,39 @@
       <td>{{$value.cate_name}}</td>
       <td>{{$value.cate_alias}}</td>
       <td>
-        <button type="button" class="layui-btn layui-btn-sm">编辑</button>
-        <button type="button" class="layui-btn layui-btn-danger layui-btn-sm">删除</button>
+        <button type="button" class="layui-btn layui-btn-sm btnEdit" data-id="{{$value.id}}">编辑</button>
+        <button type="button" class="layui-btn layui-btn-danger layui-btn-sm btnDelete" data-id="{{$value.id}}">删除</button>
       </td>
     </tr>
     {{/each}}
   </script>
+
+  <!--添加弹出层  -->
+  <script type="text/html" id="dialogAdd">
+    <form class="layui-form" id="formAdd" lay-filter="addFormFilter">
+      <input type="hidden" name="id">
+      <div class="layui-form-item">
+        <label class="layui-form-label">分类名称</label>
+        <div class="layui-input-block">
+          <input type="text" name="cate_name" required  lay-verify="required" placeholder="请输入分类名称" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">分类别名</label>
+        <div class="layui-input-block">
+          <input type="text" name="cate_alias" required  lay-verify="required" placeholder="请输入分类别名" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-input-block">
+          <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+          <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+      </div>
+    </form>
+  </script>
+
+
   <script src="/assets/lib/jquery.js"></script>
   <script src="/assets/lib/layui/layui.all.js"></script>
   <script src="/assets/lib/template-web.js"></script>
