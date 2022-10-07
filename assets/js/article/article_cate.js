@@ -103,7 +103,7 @@ $(function () {
           if (res.data !== 0) return layer.msg('删除分类详情失败')
           layer.msg('删除分类详情成功')
           // 重新加载列表
-          loadCateList()
+          loadCateList() 
         }
       })
     }
