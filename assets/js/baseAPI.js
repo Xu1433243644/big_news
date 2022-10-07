@@ -4,7 +4,7 @@ $.ajaxPrefilter(function (config) {
     const target = {}
     source.split('&').forEach(el => {
       let kv = el.split('=')
-      target[kv[0]] = kv[1]
+      target[kv[0]] = decodeURIComponent(kv[1])
     })
     return JSON.stringify(target)
   }

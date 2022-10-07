@@ -15,8 +15,9 @@ $(function () {
 })
 
 // 函数表达式虽然不会提升函数，但是异步任务调用，依旧先定义后调用
+// 全局变量window 只能用var 和 function来写入全局变量window上
 // 调用接口获取用户基本信息
-const getUserInfo = () => {
+function getUserInfo() {
   $.ajax({
     method: 'GET',
     url: '/my/userinfo',
@@ -33,14 +34,15 @@ const getUserInfo = () => {
 }
 
 const renderAvatar = (res) => {
-  if (res.user_pic) {
+  if (res.data.user_pic) {
     $('.text-avatar').hide()
-    $('.user-info img').css('src', res.user_pic).show()
+    $('.user-info img').attr('src', res.data.user_pic).show()
   } else {
     $('.layui-nav-img').hide()
     // 显示文字头像，取username第一个字母
     const name = res.data.nickname || res.data.username
-    const char = name.charAt(0).toUpperCase()
+    // const char = name.charAt(0).toUpperCase()
+    const char = name[0].toUpperCase()
     $('.text-avatar').html(char).show()
   }
   $('.text').html(`欢迎&nbsp;&nbsp;${res.data.username}`)
